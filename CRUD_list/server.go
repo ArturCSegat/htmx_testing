@@ -17,9 +17,9 @@ type Content struct {
 }
 
 var Users []User = []User{
-    User{Name: "Artur", Role: "LOl"},
-    User{Name: "Jullia", Role: "Funny"},
-    User{Name: "Peter", Role: "Moment"},
+    User{Name: "Artur", Role: "Funny"},
+    User{Name: "Jullia", Role: "Linda"},
+    User{Name: "Peter", Role: "Griffin"},
 }
 
 func home(w http.ResponseWriter, r * http.Request) {
