@@ -1,4 +1,4 @@
-module github.com/ArturCSegat/htmx_golang_test
+module github.com/ArturCSegat/htmx_testing
 
 go 1.20
 
