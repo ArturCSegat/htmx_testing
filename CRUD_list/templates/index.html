@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="container" id="user-list">
+            {{ template "users" . }}
+        </div>
+        <img src="https://png.pngtree.com/element_our/20200609/ourmid/pngtree-swot-analysis-image_2231291.jpg" alt="">
+        <form hx-post="/new-user" hx-trigger="submit" hx-target="#user-list">
+            <input type="text" name="name" placeholder="user's name">
+            <input type="text" role="role" placeholder="user's role">
+            <button type="submit">Create User</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+{{ define "user" }}
+<div class="user">
+    <p class="name">{{ .Name }}</p>
+    <p class="role">{{ .Role }}</p>
+    <button hx-delete="/delete-user/{{.Name}}" hx-trigger="click" hx-target="#user-list">Delete</button>
+    <button hx-get="/swap" hx-trigger="click" hx-target="closest .user">Swap for lol</button>
+</div>
+{{ end }} 

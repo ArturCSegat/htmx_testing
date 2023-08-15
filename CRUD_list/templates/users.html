@@ -1,0 +1,5 @@
+{{ define "users" }}
+    {{ range .Users }}
+        {{ template "user" . }}
+    {{ end }} 
+{{ end }} 
