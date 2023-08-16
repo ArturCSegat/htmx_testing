@@ -5,15 +5,25 @@
         <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
         <title>Document</title>
     </head>
-    <body>
-        <div class="container" id="user-list">
-            {{ template "users" . }}
+    <body style="display: flex; flex-direction: row;">
+        <div class="users-container">
+            <div class="container" id="user-list">
+                {{ template "users" . }}
+            </div>
+            <img src="https://png.pngtree.com/element_our/20200609/ourmid/pngtree-swot-analysis-image_2231291.jpg" alt="">
+            <form hx-post="/new-user" hx-trigger="submit" hx-target="#user-list">
+                <input type="text" name="name" placeholder="user's name">
+                <input type="text" name="role" placeholder="user's role">
+                <button type="submit">Create User</button>
+            </form>
         </div>
-        <img src="https://png.pngtree.com/element_our/20200609/ourmid/pngtree-swot-analysis-image_2231291.jpg" alt="">
-        <form hx-post="/new-user" hx-trigger="submit" hx-target="#user-list">
-            <input type="text" name="name" placeholder="user's name">
-            <input type="text" role="role" placeholder="user's role">
-            <button type="submit">Create User</button>
-        </form>
+        <div class="search-container">
+            <form hx-post="/search-user" hx-trigger="keyup" hx-target="#search-results" autocomplete="off">
+                <input name="search" type="text">
+            </form>
+            <div id="search-results">
+                {{ template "search-results" . }}
+            </div>
+        </div>
     </body>
 </html>

@@ -1,0 +1,5 @@
+{{ define "search-results" }}
+    {{ range .Results }}
+        {{ template "search-item" . }}
+    {{ end }}
+{{ end }}

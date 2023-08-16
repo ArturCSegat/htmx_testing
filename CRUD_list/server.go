@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-    "fmt"
 	"html/template"
     "github.com/gorilla/mux"
 )
@@ -53,7 +52,6 @@ func delete_user(w http.ResponseWriter, r * http.Request) {
         for i, user := range Users {
             if user.Name == name {
                 Users = append(Users[:i], Users[i+1:]...)
-                fmt.Println(Users)
                 cont := Content{Users: Users}
                 w.WriteHeader(http.StatusOK)
                 tmpl.ExecuteTemplate(w, "users", cont)
@@ -81,10 +79,37 @@ func new_user (w http.ResponseWriter, r * http.Request) {
         if err != nil {
             panic(err)
         }
-
         Users = append(Users, User{Name: r.FormValue("name"), Role: r.FormValue("role")})
 
         tmpl.ExecuteTemplate(w, "users", Content{Users: Users})
+    }
+}
+
+func get_all_users_with (w http.ResponseWriter, r * http.Request) {
+    if r.Method == "POST" {
+        crr_str := r.FormValue("search")
+        valid_users := make([]User, 0)
+        
+        if crr_str != "" {
+            outer: for _, usr := range Users {
+                for i, _:= range crr_str {
+                    if crr_str[i] != usr.Name[i] {
+                        continue outer           
+                    }
+                }
+                valid_users = append(valid_users, usr)
+            }
+        }
+        tmpl, err := template.ParseFiles("templates/search_results.html", "templates/search_item.html")
+        if err != nil {
+            panic(err)
+        }
+            
+        type SearchResults struct {
+            Results []User
+        }
+
+        tmpl.ExecuteTemplate(w, "search-results", SearchResults{Results: valid_users})
     }
 }
 
@@ -94,6 +119,7 @@ func main(){
     router.HandleFunc("/delete-user/{name}", delete_user)
     router.HandleFunc("/swap", swap_lol)
     router.HandleFunc("/new-user", new_user)
+    router.HandleFunc("/search-user", get_all_users_with)
 
     http.ListenAndServe("localhost:6969", router)
 }
